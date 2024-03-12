@@ -1,0 +1,54 @@
+/* Estilos para el contenedor */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Estilos para el título */
+.title {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el input */
+.input {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Estilos para el botón */
+.button {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el contenedor de juegos */
+.gamesContainer {
+    margin-top: 20px;
+}
+
+/* Estilos para el enlace */
+.linkButton {
+    text-decoration: none;
+}
+
+/* Estilos para el contenedor de grupos */
+.groupContainer {
+    margin-top: 20px;
+}

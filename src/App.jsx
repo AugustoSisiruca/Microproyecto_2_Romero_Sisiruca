@@ -1,10 +1,11 @@
-import RegisterPage from "./pages/RegisterPage";
+import MenuPage from './pages/MenuPage';
 import './App.css'
+
 
 export default function App(){
     return(
         <div>
-            <RegisterPage/>
+            <MenuPage/>
         </div>
     )
 }

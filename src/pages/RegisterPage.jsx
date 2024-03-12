@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {useUser} from "../context/user";
-import {createUserWithEmail, signInWithEmail, signInWithGoogle, signOutUser} from "../controllers/auth";
+import { createUser } from "../controllers/usuario";
+import {createUserWithEmail, signInWithGoogle} from "../controllers/auth";
 import CardGame from "../components/CardGame";
 import useGames from "../hooks/GamesLoad";
+import styles from './RegisterPage.module.css'
 
 export default function RegisterPage(){
     const navigate= useNavigate()
@@ -19,41 +21,51 @@ export default function RegisterPage(){
     const [videoGame,setJuego] = useState("")
 
 
-    const handleSignin= async (e)=> {
+    const handleSignin= async ()=> {
         const user = await createUserWithEmail(email,password)
         if(user !=null){ 
             await createUser(name,lastName,username,email,password,videoGame)
         }else{
-            alert("Debes proporcionr obligatoriamente el correo y la contraseña")
+            alert("¡Ingrese su correo y contraseña!")
         }
 
     }
 
 
-    const handleLogingGoogle= async (e)=> {
+    const handleLogingGoogle= async ()=> {
         const user = await signInWithGoogle() 
         console.log(user)} 
-    useEffect(()=>{if(user){navigate("/AppPage")}},[user,navigate])
-    return (<div>
+    useEffect(()=>{if(user){navigate("/HomePage")}},[user,navigate])
+    return (
+    <div className={styles.container}>
         <section>
-        Ingrese su Nombre:
-        <input value={name} onChange={e =>  setName(e.target.value) }></input>
-        Ingrese su Apellido:
-        <input value={lastName} onChange={e =>  setLastName(e.target.value) }></input>
-        Ingrese su Email:
-        <input value={email} onChange={e =>  setEmail(e.target.value) }></input>
-        Ingrese su nombre de usuario:
-        <input value={username} onChange={e =>  setUsername(e.target.value) }></input>
-        Ingrese su contraseña del usuario:
-        <input value={password} onChange={e =>  setPassword(e.target.value) }></input>
+            <h1 className={styles.title}>Ingrese su Nombre:</h1>
+            <input className={styles.input} value={name} onChange={e => setName(e.target.value)} />
+    
+            <h1 className={styles.title}>Ingrese su Apellido:</h1>
+            <input className={styles.input} value={lastName} onChange={e => setLastName(e.target.value)} />
+    
+            <h1 className={styles.title}>Ingrese su Email:</h1>
+            <input className={styles.input} value={email} onChange={e => setEmail(e.target.value)} />
+    
+            <h1 className={styles.title}>Ingrese su nombre de usuario:</h1>
+            <input className={styles.input} value={username} onChange={e => setUsername(e.target.value)} />
+    
+            <h1 className={styles.title}>Ingrese su contraseña del usuario:</h1>
+            <input className={styles.input} value={password} onChange={e => setPassword(e.target.value)} />
         </section>
-        {juegos?.map(({ id, titulo}) => (
-            <CardGame key={titulo + id} id={id} titulo={titulo} juego = {videoGame} setJuego = {setJuego} />
+    
+        {juegos?.map(({ id, titulo }) => (
+            <CardGame key={titulo + id} id={id} titulo={titulo} juego={videoGame} setJuego={setJuego} />
         ))}
-        Confirme:
-        <button onClick={ handleSignin}>Confimar</button>
-        Otras formas de registrarse: 
-        <button onClick={handleLogingGoogle} disabled = {!videoGame || !username}>Registrarse con Google</button>
-        </div>
+    
+        <h1 className={styles.title}>Confirme:</h1>
+        <button className={styles.button} onClick={handleSignin}>Confirmar</button>
+    
+        <h1 className={styles.title}>Otras formas de registrarse:</h1>
+        <button className={styles.button} onClick={handleLogingGoogle} disabled={!videoGame || !username}>
+            Registrarse con Google
+        </button>
+    </div>
     )
 }

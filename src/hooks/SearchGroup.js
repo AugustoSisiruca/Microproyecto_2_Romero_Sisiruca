@@ -1,14 +1,11 @@
 import { useEffect, useState,} from "react";
+import { searchClubGroupByNumber } from "../controllers/group";
 
-
-export default function useGroup() {
+export default function useGroup(id) {
     const [groups, setGroups] = useState(null);
-    useEffect(()=>{
-        async function load(){
+    useEffect(()=>{async function load(){
             const groups = await searchClubGroupByNumber(id);
-            setGroups(groups);
-        }
+            setGroups(groups);}
         load();
-    }, []);
-    return groups;
+    }); return groups;
 }

@@ -2,47 +2,42 @@ import { useEffect, useState } from "react";
 import {signInWithEmail, signInWithGoogle, signOutUser} from "../controllers/auth";
 import {useUser} from "../context/user";
 import { useNavigate } from "react-router-dom";
+import styles from './LoginPage.module.css';
 
 export default function LoginPage(){
     const navigate = useNavigate();
     const user = useUser();
-    useEffect(()=>{
-        if(user){
-            navigate("../HomePage/HomePage")
-        }
+    useEffect(()=>{if(user){
+            navigate("/Login")}
     }, [user, navigate]);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState ("");
-    const handleLogin = async (e)=> {
+    const handleLogin = async ()=> {
         const user = await signInWithEmail(email, password);
         console.log(user);
     }
-
-    const handleLogingGoogle= async (e)=> {
+    const handleLogingGoogle= async ()=> {
         const user = await signInWithGoogle()
-        console.log(user)
+        console.log(user);
     }
 
     return(
-        <div>
-            <h1>INCIAR SESIÓN</h1>
-            <section>
-                <h3>Ingrese su correo:</h3>
-                <input value={email} onChange={e => setEmail(e.target.value)} />
-                <h3>Ingrese su contraseña:</h3>
-                <input value={password} onChange={e => setPassword(e.target.value)} />
-                <p>Al comprobar los datos inicie sesion</p>
-                <button onClick={handleLogin}>Iniciar Sesion</button>
-            </section>
-            <section>
-                <h2>Otras opciones de registro:</h2>
-                {/*Inserta imagen*/}
-                <button onClick={handleLogingGoogle}>Iniciar sesion con Google</button>
-                <button onClick={signOutUser}></button>
-
-            </section>
-            
-        </div>
+<div className={styles.container}>
+    <h1 className={styles.title}>INCIAR SESIÓN</h1>
+    <section>
+        <h3>Ingrese su correo:</h3>
+        <input className={styles.input} value={email} onChange={e => setEmail(e.target.value)} />
+        <h3>Ingrese su contraseña:</h3>
+        <input className={styles.input} value={password} onChange={e => setPassword(e.target.value)} />
+        <p>Al comprobar los datos inicie sesión</p>
+        <button className={styles.button} onClick={handleLogin}>Iniciar Sesión</button>
+    </section>
+    <section>
+        <h2>Otras opciones de registro:</h2>
+        <button className={styles.button} onClick={handleLogingGoogle}>Iniciar sesión con Google</button>
+        <button className={styles.button} onClick={signOutUser}>Volver</button>
+    </section>
+</div>
     )
 
 }
